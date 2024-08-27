@@ -1,0 +1,16 @@
+/* CartWidget.css */
+.cart-img {
+    width: 30px; /* Ajusta este valor según el tamaño que prefieras */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+/* CONTENEDOR */
+.cart-counter {
+    display: flex;
+    align-items: center;
+}
+/* CONTADOR CARRITO */
+.counter {
+    font-size: 16px; /* Ajusta el tamaño del número */
+    color: #264653; /* Cambia este valor por el color que quieras */
+    font-weight: bold; /* Puedes agregar estilos adicionales, como bold */
+}

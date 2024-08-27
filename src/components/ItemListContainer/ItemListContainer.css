@@ -1,0 +1,7 @@
+.item-list-container h1 {
+    font-size: 2rem;
+    color: #264653; /* Azul Profundo */
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 4rem;
+}
