@@ -2,14 +2,14 @@
 /* Contenedor */
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem;
     background-color: #fff1e6; /* Fondo en Azul Profundo */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Montserrat', sans-serif; /* Aplica Montserrat solo al Navbar */
-    width: 85vw;
-    height: 3rem;
+    width: 100%;
+    height: auto;
     margin-top: 0;
 }
 
@@ -23,32 +23,7 @@
     height: 8rem;
     margin-right: 10px;
 }
-/* Titulo Navbar */
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #264653;
-    margin-right: 4rem;
-}
 
-/* Contenedor Links */
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-/* Links textos */
-.nav-link {
-    text-decoration: none;
-    color: #264653;
-    font-size: 1rem;
-    padding: 5px 10px;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: #8D4F3F; /* Color Terracota Oscuro al pasar el cursor */
-}
 
 /* Estilo del widget del carrito */
 .cart-widget {
