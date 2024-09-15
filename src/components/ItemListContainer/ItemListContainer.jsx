@@ -1,50 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import CardProducts from '../CardProducts/CardProducts';
+import Filter from '../CategoryFilter/CategoryFilter'; // Importamos el componente de filtro
 
-const ItemListContainer = ({ selectedBrand }) => {
-  // Estado para almacenar los productos
-  const [productos, setProductos] = useState([]);
-  
-  // Estado para manejar si los datos están cargando
-  const [loading, setLoading] = useState(true);
+const ItemListContainer = () => {
+  const [productos, setProductos] = useState([]);      // Todos los productos
+  const [filteredProductos, setFilteredProductos] = useState([]); // Productos filtrados
+  const [loading, setLoading] = useState(true);        // Estado de carga
+  const [selectedBrand, setSelectedBrand] = useState(''); // Marca seleccionada
 
-  // useEffect para cargar los productos cuando el componente se monte
+  // useEffect para cargar los productos al montar el componente
   useEffect(() => {
-    // Función asincrónica para obtener los datos del archivo productos.json
     const fetchProductos = async () => {
       try {
-        // Hacemos la petición a productos.json
-        const response = await fetch('../../../products.json');
+        const response = await fetch('../../../products.json'); // Obtener productos del JSON
         const data = await response.json();
-        console.log(data);
-        // Guardamos los productos en el estado
         setProductos(data);
+        setFilteredProductos(data);  // Mostrar todos los productos al inicio
       } catch (error) {
         console.error('Error al cargar los productos:', error);
       } finally {
-        // Cambiamos el estado de "loading" a false cuando los datos se cargan
-        setLoading(false);
+        setLoading(false);  // Detener el estado de carga
       }
     };
-
     fetchProductos();
-  }, []); // El array vacío asegura que el fetch se ejecute solo una vez, al montar el componente
+  }, []);
 
-  // Filtrar los productos por marca seleccionada
-  const filteredProducts = selectedBrand
-    ? productos.filter(producto => producto.brand === selectedBrand)
-    : productos;
+  // Filtrado: Función para manejar el cambio de marca y filtrar productos
+  const handleFilterChange = (event) => {
+    const selected = event.target.value;
+    setSelectedBrand(selected);
 
-  // Si los productos están cargando, mostramos un mensaje
+    if (selected === '') {
+      setFilteredProductos(productos);  // Si no hay marca seleccionada, mostrar todos los productos
+    } else {
+      const filtered = productos.filter(producto => producto.marca === selected);
+      setFilteredProductos(filtered);  // Filtrar productos por la marca seleccionada
+    }
+  };
+
+  // Obtener marcas únicas para el filtro
+  const uniqueBrands = Array.from(new Set(productos.map(producto => producto.marca)));
+
+  // Si los productos están cargando, mostrar un mensaje
   if (loading) {
     return <p>Cargando productos...</p>;
   }
 
   return (
     <div className="item-list-container">
+      {/* Integración del componente Filter */}
+      <Filter
+        selectedBrand={selectedBrand}
+        onFilterChange={handleFilterChange}
+        brands={uniqueBrands}
+      />
+
+      {/* Mostrar los productos filtrados */}
       <div className="contenedorProducts">
-        {filteredProducts.map((producto) => (
+        {filteredProductos.map((producto) => (
           <CardProducts key={producto.id} producto={producto} />
         ))}
       </div>

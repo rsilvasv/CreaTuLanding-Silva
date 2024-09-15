@@ -1,25 +1,22 @@
 import React from 'react';
-import './CategoryFilter.css'; // Renombra el archivo CSS a algo más adecuado como `BrandFilter.css`
 
-const BrandFilter = ({ brands, onBrandSelect, selectedBrand }) => {
+const Filter = ({ selectedBrand, onFilterChange, brands }) => {
   return (
-    <div className="brand-filter">
-      <h1>Filtrar por Marca</h1>
-      <div className="filter-buttons">
-        {brands.map((marca) => (
-          <button
-            key={marca}
-            className={selectedBrand === marca ? 'active' : ''}
-            onClick={() => onBrandSelect(marca)}
-          >
-            {marca}
-          </button>
+    <div className="filter-section">
+      <label htmlFor="brand-filter">Filtrar por marca: </label>
+      <select id="brand-filter" value={selectedBrand} onChange={onFilterChange}>
+        <option value="">Todas las marcas</option>
+        {brands.map(brand => (
+          <option key={brand} value={brand}>
+            {brand}
+          </option>
         ))}
-      </div>
+      </select>
     </div>
   );
 };
 
-export default BrandFilter;
+export default Filter;
+
 
 
