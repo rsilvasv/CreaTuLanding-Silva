@@ -1,0 +1,28 @@
+.welcome-animation {
+    display: flex; /* Usamos flexbox para organizar los elementos */
+    align-items: flex-start; /* Alinea los elementos al inicio del eje transversal (vertical) */
+    justify-content: flex-start; /* Alinea los elementos al inicio del eje principal (horizontal) */
+    background-color: #37818A;
+  }
+
+.animation-gif {
+    width: 100vw; /* Ancho del GIF, ajusta según tu preferencia */
+    height: auto; /* Mantiene la proporción del GIF */
+    
+}
+  
+/* Ajustes específicos para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .welcome-animation img {
+    max-width: 80%; /* Ajusta el ancho máximo en pantallas más pequeñas */
+    max-height: 200px; /* Ajusta la altura máxima en pantallas más pequeñas */
+  }
+}
+
+/* Ajustes para pantallas móviles */
+@media (max-width: 480px) {
+  .welcome-animation img {
+    max-width: 90%; /* Ajusta el ancho máximo para móviles */
+    max-height: 150px; /* Ajusta la altura máxima para móviles */
+  }
+}

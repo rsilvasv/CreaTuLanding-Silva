@@ -1,41 +1,46 @@
-/* CategoryFilter.css */
+/* Filter.css */
 
-.category-filter {
-    padding: 20px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .category-filter h1 {
-    font-size: 26px;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .filter-buttons {
+.filter-section {
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #f7f9fc; /* Fondo claro para contrastar con el contenido */
+    border-radius: 8px; /* Bordes redondeados para un look más moderno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar el contenedor */
   }
   
-  .filter-buttons button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+  .filter-section label {
     font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: 500;
+    color: #333; /* Color de texto oscuro para contraste */
+    margin-right: 10px; /* Espacio entre la etiqueta y el select */
   }
   
-  .filter-buttons button:hover {
-    background-color: #0056b3;
+  .filter-section select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ddd; /* Borde gris claro para el select */
+    border-radius: 4px; /* Bordes redondeados para el select */
+    background-color: #F9F3E5; /* Fondo blanco para el select */
+    color: #333; /* Color del texto dentro del select */
+    transition: border-color 0.3s ease; /* Transición suave para el borde */
   }
   
-  .filter-buttons button.active {
-    background-color: #0056b3;
-    border: 1px solid #004494;
+  .filter-section select:focus {
+    border-color: #007bff; /* Color del borde cuando el select está en foco */
+    outline: none; /* Eliminar el contorno por defecto del navegador */
   }
+  
+  @media (max-width: 600px) {
+    .filter-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .filter-section label {
+      margin-bottom: 5px; /* Espacio debajo de la etiqueta en pantallas pequeñas */
+    }
+  }
+  
   

@@ -1,65 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './ItemListContainer.css';
 import CardProducts from '../CardProducts/CardProducts';
-import Filter from '../CategoryFilter/CategoryFilter'; // Importamos el componente de filtro
+import Filter from '../CategoryFilter/CategoryFilter'; // Este componente puede ser adaptado si usas filtros basados en otras propiedades
+import { CartContext } from '../../context/CartContext';
+import Swal from 'sweetalert2';
+import WelcomeAnimation from '../Animation/WelcomeAnimation';
+import { useParams } from 'react-router-dom';
 
 const ItemListContainer = () => {
-  const [productos, setProductos] = useState([]);      // Todos los productos
-  const [filteredProductos, setFilteredProductos] = useState([]); // Productos filtrados
-  const [loading, setLoading] = useState(true);        // Estado de carga
-  const [selectedBrand, setSelectedBrand] = useState(''); // Marca seleccionada
+  const { categoryId } = useParams(); // Obtener la categoría desde la URL
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(CartContext);
 
-  // useEffect para cargar los productos al montar el componente
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await fetch('../../../products.json'); // Obtener productos del JSON
+        const response = await fetch('../../../products.json');
         const data = await response.json();
-        setProductos(data);
-        setFilteredProductos(data);  // Mostrar todos los productos al inicio
+        if (data){
+          setProductos(data);
+        }
       } catch (error) {
         console.error('Error al cargar los productos:', error);
       } finally {
-        setLoading(false);  // Detener el estado de carga
+        setLoading(false);
       }
     };
     fetchProductos();
   }, []);
 
-  // Filtrado: Función para manejar el cambio de marca y filtrar productos
-  const handleFilterChange = (event) => {
-    const selected = event.target.value;
-    setSelectedBrand(selected);
-
-    if (selected === '') {
-      setFilteredProductos(productos);  // Si no hay marca seleccionada, mostrar todos los productos
-    } else {
-      const filtered = productos.filter(producto => producto.marca === selected);
-      setFilteredProductos(filtered);  // Filtrar productos por la marca seleccionada
-    }
+  const handleAddToCart = (producto) => {
+    addToCart(producto);
+    Swal.fire({
+      title: 'Producto agregado',
+      text: `${producto.name} se ha añadido al carrito`,  // Aquí usas backticks
+      icon: 'success',
+      toast: true,
+      position: 'bottom-right',
+      timer: 3000,
+      showConfirmButton: false
+    });
   };
 
-  // Obtener marcas únicas para el filtro
-  const uniqueBrands = Array.from(new Set(productos.map(producto => producto.marca)));
-
-  // Si los productos están cargando, mostrar un mensaje
   if (loading) {
     return <p>Cargando productos...</p>;
   }
 
   return (
     <div className="item-list-container">
-      {/* Integración del componente Filter */}
-      <Filter
-        selectedBrand={selectedBrand}
-        onFilterChange={handleFilterChange}
-        brands={uniqueBrands}
-      />
-
-      {/* Mostrar los productos filtrados */}
       <div className="contenedorProducts">
-        {filteredProductos.map((producto) => (
-          <CardProducts key={producto.id} producto={producto} />
+        {productos.map((producto) => (
+          <CardProducts
+            key={producto.id}
+            producto={producto}
+            onAddToCart={() => addToCart(producto)} // Pasar la función de añadir al carrito
+          />
         ))}
       </div>
     </div>

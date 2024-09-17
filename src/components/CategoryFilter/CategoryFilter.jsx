@@ -1,4 +1,5 @@
 import React from 'react';
+import './CategoryFilter.css'
 
 const Filter = ({ selectedBrand, onFilterChange, brands }) => {
   return (

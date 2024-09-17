@@ -5,20 +5,23 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import ItemDetails from './components/ItemDetails/ItemDetails'
 import NotFound from './components/NotFound/NotFound'
 import './App.css'
-import BrandFilter from './components/CategoryFilter/CategoryFilter'
+import { CartProvider } from './context/CartContext'
+import ItemFilterContainer from './components/ItemFilterContainer/ItemFilterContainer'
 
 
 function App() {
   return (
-      <BrowserRouter>
+    <BrowserRouter>
+      <CartProvider>
         <Navbar/>
         <Routes>
           <Route path='/' element={<ItemListContainer/>}/>
-          <Route path="/category/:categoryId" element={<BrandFilter />} />
+          <Route path="/marca/:marcaId" element={<ItemFilterContainer />} />
           <Route path="/product/:productId" element={<ItemDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </CartProvider>
+    </BrowserRouter>
   )
 }
 

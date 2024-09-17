@@ -24,6 +24,11 @@
     height: auto;
     border-bottom: 1px solid #eee;
   }
+
+  .producto-image img {
+    width: 50%;
+    height: auto;
+  }
   
   .producto-info {
     padding: 15px;
